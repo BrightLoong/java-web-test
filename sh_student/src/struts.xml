@@ -1,0 +1,35 @@
+<!DOCTYPE struts PUBLIC 
+	"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" 
+	"http://struts.apache.org/dtds/struts-2.3.dtd" >
+<struts>
+    <!-- package提供了将多个Action组织为一个模块的方式
+        package的名字必须是唯一的 package可以扩展 当一个package扩展自
+        另一个package时该package会在本身配置的基础上加入扩展的package
+        的配置 父package必须在子package前配置 
+        name：package名称
+        extends:继承的父package名称
+        abstract:设置package的属性为抽象的 抽象的package不能定义action 值true:false
+        namespace:定义package命名空间 该命名空间影响到url的地址，例如此命名空间为/test那么访问是的地址为http://localhost:8080/struts2/test/XX.action
+     -->
+    <package name="default" extends="struts-default" namespace="/">
+    </package>
+    
+    <package name="users" extends="default" namespace="/users">
+    	<action name="*_*" class="action.{1}Action" method="{2}">
+    		<result name="login_success">/users/Users_login_success.jsp</result>
+    		<result name="login_failure">/users/Users_login.jsp</result>
+    		<result name="logout_success">/users/Users_login.jsp</result>
+    		<result name="input">/users/Users_login.jsp</result>
+    	</action>
+    </package>
+    
+    <package name="students" extends="default" namespace="/students">
+    	<action name="*_*" class="action.{1}Action" method="{2}">
+    		<result name="Students_query_success">/students/Students_query_success.jsp</result>
+    		<result name="delete_success" type="chain">Students_query</result>
+    		<result name="add_success">Students_add_success.jsp</result>
+    		<result name="modify_success">Students_modify.jsp</result>
+    		<result name="save_success">Students_modify_success.jsp</result>
+    	</action>
+    </package>
+</struts>
